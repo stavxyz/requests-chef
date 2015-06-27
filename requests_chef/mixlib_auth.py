@@ -26,25 +26,39 @@ import datetime
 import hashlib
 import os
 
+import requests
+
 from cryptography.hazmat import backends as crypto_backends
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.asymmetric import rsa
-import requests
-
-from chef import utils
 
 
 def digester(data):
     """Create SHA-1 hash, get digest, b64 encode, split every 60 char."""
     hashof = hashlib.sha1(data).digest()
     encoded_hash = base64.b64encode(hashof)
-    chunked = utils.splitter(encoded_hash, chunksize=60)
+    chunked = splitter(encoded_hash, chunksize=60)
     lines = '\n'.join(chunked)
     return lines
 
 
-class HttpChefMixlibAuth(requests.auth.AuthBase):
+def normpath(path):
+    """Normalize a path.
+
+    Expands ~'s, resolves relative paths, normalizes and returns
+    an absolute path.
+    """
+    return os.path.abspath(os.path.normpath(os.path.expanduser(path)))
+
+
+def splitter(iterable, chunksize=60):
+    """Split an iterable that supports indexing into chunks of 'chunksize'."""
+    return (iterable[0+i:chunksize+i]
+            for i in range(0, len(iterable), chunksize))
+
+
+class ChefAuth(requests.auth.AuthBase):
 
     """Sign requests with user's private key.
 
@@ -71,7 +85,7 @@ class HttpChefMixlibAuth(requests.auth.AuthBase):
 
     def __repr__(self):
         """Show the auth handler object."""
-        return '%s(%s)' % (self.__class__.__name__, self.user_id)
+        return '%s(%s)' % (type(self).__name__, self.user_id)
 
     def __call__(self, request):
         """Sign the request."""
@@ -84,7 +98,7 @@ class HttpChefMixlibAuth(requests.auth.AuthBase):
             request.method, hashed_path, hashed_body, timestamp)
 
         signed = self.private_key.sign(canonical_request, b64=True)
-        signed_chunks = utils.splitter(signed, chunksize=60)
+        signed_chunks = splitter(signed, chunksize=60)
         signed_headers = {
             'X-Ops-Authorization-%d' % (i+1): segment
             for i, segment in enumerate(signed_chunks)
@@ -140,8 +154,8 @@ class RSAKey(object):
         :param private_key: Private key string (PEM format) or the path
                             to a local private key file.
         """
-        #TODO(sam): try to break this in tests
-        maybe_path = utils.normpath(private_key)
+        # TODO(sam): try to break this in tests
+        maybe_path = normpath(private_key)
         if os.path.isfile(maybe_path):
             with open(maybe_path, 'rb') as pkf:
                 private_key = pkf.read()
