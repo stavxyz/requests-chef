@@ -29,7 +29,14 @@ with open(os.path.join(src_dir, 'requests_chef', '__about__.py')) as abt:
 
 
 INSTALL_REQUIRES = [
-    'six',
+    'cryptography==0.9.1f',
+    'six>=1.9.0',
+]
+
+# cryptography==0.9.1f is not on pypi, so provide a link
+DEPENDENCY_LINKS = [
+    ('https://github.com/samstav/cryptography'
+     '/tarball/rsa-bypass-hash-on-signer#egg=cryptography-0.9.1f'),
 ]
 
 TESTS_REQUIRE = [
@@ -51,6 +58,7 @@ CLASSIFIERS = [
 package_attributes = {
     'name': about['__title__'],
     'description': about['__summary__'],
+    'dependency_links': DEPENDENCY_LINKS,
     'keywords': ' '.join(about['__keywords__']),
     'version': about['__version__'],
     'tests_require': TESTS_REQUIRE,
