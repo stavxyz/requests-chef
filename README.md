@@ -1,5 +1,5 @@
 # requests-chef
-[Chef authentication](https://docs.chef.io/auth.html) support for Python-Requests
+[Chef Auth](https://docs.chef.io/auth.html#authentication-headers) support for Python-Requests
 
 ```python
 import requests_chef
