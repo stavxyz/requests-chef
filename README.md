@@ -1,5 +1,5 @@
 # requests-chef
-[![latest](https://img.shields.io/pypi/v/requests-chef.svg)](https://pypi.python.org/pypi/requests-chef)
+[![latest](https://img.shields.io/pypi/v/requests-chef.svg)](https://pypi.python.org/pypi/requests-chef)  
 [Chef auth](https://docs.chef.io/auth.html#authentication-headers) support for Python-Requests
 
 ```python
