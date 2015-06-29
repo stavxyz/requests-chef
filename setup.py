@@ -58,7 +58,7 @@ package_attributes = {
     'install_requires': INSTALL_REQUIRES,
     'packages': find_packages(exclude=['tests']),
     'author': about['__author__'],
-    'maintainer_email': about['__email__'],
+    'author_email': about['__email__'],
     'classifiers': CLASSIFIERS,
     'license': about['__license__'],
     'url': about['__url__'],
