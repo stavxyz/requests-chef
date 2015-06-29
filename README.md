@@ -34,7 +34,7 @@ This project currently requires [a fork](https://github.com/samstav/cryptography
 $ pip install git+https://github.com/samstav/cryptography.git@rsa-bypass-hash-on-signer
 ```
 
-If you don't do this first, you'd have to use the (deprecated, scheduled for removal) `--process-dependency-links` option through pip, since pip no longer (as of pip 1.5) respects [dependency links](https://pythonhosted.org/setuptools/setuptools.html#dependencies-that-aren-t-in-pypi) by default.
+If you don't do this first, you'd have to use the (deprecated, scheduled for removal) `--process-dependency-links` option through pip, since pip no longer respects [dependency links](https://pythonhosted.org/setuptools/setuptools.html#dependencies-that-aren-t-in-pypi) by default (as of pip 1.5).
 ```
 $ pip install --process-dependency-links requests-chef 
 ```
