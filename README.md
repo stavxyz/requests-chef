@@ -1,6 +1,6 @@
 # requests-chef
 [![latest](https://img.shields.io/pypi/v/requests-chef.svg)](https://pypi.python.org/pypi/requests-chef) 
-[![Circle CI](https://circleci.com/gh/samstav/requests-chef.svg?style=svg)](https://circleci.com/gh/samstav/requests-chef)
+[![Circle CI](https://circleci.com/gh/samstav/requests-chef/tree/master.svg?style=shield)](https://circleci.com/gh/samstav/requests-chef)
 [![Coverage Status](https://coveralls.io/repos/samstav/requests-chef/badge.svg)](https://coveralls.io/r/samstav/requests-chef)  
 [Chef auth](https://docs.chef.io/auth.html#authentication-headers) support for [Python-Requests](http://docs.python-requests.org/en/latest/)
 
