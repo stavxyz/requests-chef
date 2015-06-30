@@ -14,8 +14,8 @@
 
 """requests-chef."""
 
-import os
+import os  # noqa
 
-from requests_chef.mixlib_auth import ChefAuth
-from requests_chef.mixlib_auth import RSAKey
+from requests_chef.mixlib_auth import ChefAuth  # noqa
+from requests_chef.mixlib_auth import RSAKey  # noqa
 from requests_chef.__about__ import *  # noqa
