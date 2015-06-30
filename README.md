@@ -10,7 +10,7 @@ response = requests.get('https://api.chef.io/users/chef-user',
                         headers={'X-Chef-Version': '12.0.2'},
                         auth=auth)
 response.json()
-
+...
 {'display_name': 'chef-user',
  'email': 'chef-user@example.com',
  'first_name': 'Chef',
