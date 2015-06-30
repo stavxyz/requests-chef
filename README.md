@@ -2,6 +2,8 @@
 [![latest](https://img.shields.io/pypi/v/requests-chef.svg)](https://pypi.python.org/pypi/requests-chef)  
 [Chef auth](https://docs.chef.io/auth.html#authentication-headers) support for [Python-Requests](http://docs.python-requests.org/en/latest/)
 
+See [samstav/okchef](https://github.com/samstav/okchef) first, since thats generally more useful. [`okchef`](https://github.com/samstav/okchef) uses `requests-chef` to sign and authenticate requests.
+
 ```python
 import requests_chef
 
