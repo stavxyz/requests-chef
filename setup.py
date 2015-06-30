@@ -23,9 +23,19 @@ from setuptools import setup
 
 src_dir = os.path.dirname(os.path.realpath(__file__))
 
+
 about = {}
 with open(os.path.join(src_dir, 'requests_chef', '__about__.py')) as abt:
     exec(abt.read(), about)
+
+
+# pandoc --from=markdown_github --to=rst README.md --output=README.rst
+readme = os.path.join(src_dir, 'README.rst')
+if os.path.isfile(readme):
+    with open(os.path.join(src_dir, 'README.rst')) as rdme:
+        LONG_DESCRIPTION = rdme.read()
+else:
+    LONG_DESCRIPTION = ''
 
 
 INSTALL_REQUIRES = [
@@ -33,15 +43,18 @@ INSTALL_REQUIRES = [
     'six>=1.9.0',
 ]
 
+
 # cryptography==0.9.1f is not on pypi, so provide a link
 DEPENDENCY_LINKS = [
     ('https://github.com/samstav/cryptography'
      '/tarball/rsa-bypass-hash-on-signer#egg=cryptography-0.9.1f'),
 ]
 
+
 TESTS_REQUIRE = [
     'mock',
 ]
+
 
 CLASSIFIERS = [
     'Intended Audience :: Developers',
@@ -55,9 +68,11 @@ CLASSIFIERS = [
     'Programming Language :: Python :: 3.4',
 ]
 
+
 package_attributes = {
     'name': about['__title__'],
     'description': about['__summary__'],
+    'long_description': LONG_DESCRIPTION,
     'dependency_links': DEPENDENCY_LINKS,
     'keywords': ' '.join(about['__keywords__']),
     'version': about['__version__'],
