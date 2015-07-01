@@ -3,9 +3,7 @@
 [![Circle CI](https://circleci.com/gh/samstav/requests-chef/tree/master.svg?style=shield)](https://circleci.com/gh/samstav/requests-chef)
 [![Coverage Status](https://coveralls.io/repos/samstav/requests-chef/badge.svg)](https://coveralls.io/r/samstav/requests-chef)
 [![Requirements Status](https://requires.io/github/samstav/requests-chef/requirements.svg?branch=master)](https://requires.io/github/samstav/requests-chef/requirements/?branch=master)  
-[Chef auth](https://docs.chef.io/auth.html#authentication-headers) support for [Python-Requests](http://docs.python-requests.org/en/latest/)
-
-See [samstav/okchef](https://github.com/samstav/okchef) first, since thats generally more useful. [`okchef`](https://github.com/samstav/okchef) uses `requests-chef` to sign and authenticate requests.
+##### [Chef auth](https://docs.chef.io/auth.html#authentication-headers) support for [Python-Requests](http://docs.python-requests.org/en/latest/)
 
 ```python
 import requests_chef
@@ -24,7 +22,7 @@ response.json()
  'public_key': '-----BEGIN PUBLIC KEY-----\nMIIBIj...IDAQAB\n-----END PUBLIC KEY-----\n',
  'username': 'chef-user'}
 ```
-
+See [samstav/okchef](https://github.com/samstav/okchef) first, since thats generally more useful. [`okchef`](https://github.com/samstav/okchef) uses [`requests-chef`](https://github.com/samstav/requests-chef) to sign and authenticate requests.
 ### Install
 
 This project currently requires [a fork](https://github.com/samstav/cryptography/tree/rsa-bypass-hash-on-signer) of [pyca/cryptography](https://github.com/pyca/cryptography) due to the following related issues: 
