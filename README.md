@@ -1,7 +1,8 @@
 # requests-chef
 [![latest](https://img.shields.io/pypi/v/requests-chef.svg)](https://pypi.python.org/pypi/requests-chef) 
 [![Circle CI](https://circleci.com/gh/samstav/requests-chef/tree/master.svg?style=shield)](https://circleci.com/gh/samstav/requests-chef)
-[![Coverage Status](https://coveralls.io/repos/samstav/requests-chef/badge.svg)](https://coveralls.io/r/samstav/requests-chef)  
+[![Coverage Status](https://coveralls.io/repos/samstav/requests-chef/badge.svg)](https://coveralls.io/r/samstav/requests-chef)
+[![Requirements Status](https://requires.io/github/samstav/requests-chef/requirements.svg?branch=master)](https://requires.io/github/samstav/requests-chef/requirements/?branch=master)
 [Chef auth](https://docs.chef.io/auth.html#authentication-headers) support for [Python-Requests](http://docs.python-requests.org/en/latest/)
 
 See [samstav/okchef](https://github.com/samstav/okchef) first, since thats generally more useful. [`okchef`](https://github.com/samstav/okchef) uses `requests-chef` to sign and authenticate requests.
