@@ -27,6 +27,7 @@ import hashlib
 import os
 
 import requests
+import six
 
 from cryptography.hazmat import backends as crypto_backends
 from cryptography.hazmat.primitives import serialization
@@ -36,8 +37,12 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 
 def digester(data):
     """Create SHA-1 hash, get digest, b64 encode, split every 60 char."""
+    if not isinstance(data, six.binary_type):
+        data = data.encode('utf_8')
     hashof = hashlib.sha1(data).digest()
     encoded_hash = base64.b64encode(hashof)
+    if not isinstance(encoded_hash, six.string_types):
+        encoded_hash = encoded_hash.decode('utf_8')
     chunked = splitter(encoded_hash, chunksize=60)
     lines = '\n'.join(chunked)
     return lines
@@ -172,6 +177,8 @@ class RSAKey(object):
         """
         padder = padding.PKCS1v15()
         signer = self.private_key.signer(padder, None)
+        if not isinstance(data, six.binary_type):
+            data = data.encode('utf_8')
         signer.update(data)
         signed = signer.finalize()
         if b64:
