@@ -40,6 +40,7 @@ else:
 
 INSTALL_REQUIRES = [
     'cryptography==0.9.1f',
+    'requests>=2.7.0',
     'six>=1.9.0',
 ]
 
