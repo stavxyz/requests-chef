@@ -42,4 +42,3 @@ If you don't do this first, you'd have to use the (deprecated, scheduled for rem
 ```
 $ pip install --process-dependency-links requests-chef 
 ```
-<!--Convert this file to .rst: `pandoc --from=markdown_github --to=rst README.md --output=README.rst` -->
