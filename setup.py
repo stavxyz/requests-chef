@@ -34,7 +34,7 @@ with open(os.path.join(src_dir, 'requests_chef', '__about__.py')) as abt:
 # pandoc --from=markdown_github --to=rst README.md --output=README.rst
 readme = os.path.join(src_dir, 'README.rst')
 if os.path.isfile(readme):
-    with open(os.path.join(src_dir, 'README.rst')) as rdme:
+    with open(readme) as rdme:
         LONG_DESCRIPTION = rdme.read()
 else:
     LONG_DESCRIPTION = ''
