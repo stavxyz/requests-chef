@@ -9,6 +9,7 @@ requests-chef
 
 .. code:: python
 
+    import requests
     import requests_chef
 
     auth = requests_chef.ChefAuth('chef-user', '~/chef-user.pem')
