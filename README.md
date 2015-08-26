@@ -6,6 +6,7 @@
 ##### [Chef auth](https://docs.chef.io/auth.html#authentication-headers) support for [Python-Requests](http://docs.python-requests.org/en/latest/)
 
 ```python
+import requests
 import requests_chef
 
 auth = requests_chef.ChefAuth('chef-user', '~/chef-user.pem')
