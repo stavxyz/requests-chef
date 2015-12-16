@@ -164,6 +164,9 @@ class RSAKey(object):
         if os.path.isfile(maybe_path):
             with open(maybe_path, 'rb') as pkf:
                 private_key = pkf.read()
+        if not isinstance(private_key, six.binary_type):
+            private_key = private_key.encode('utf-8')
+
         pkey = serialization.load_pem_private_key(
             private_key,
             password=password,
