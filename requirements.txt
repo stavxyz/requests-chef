@@ -1,3 +1,3 @@
-git+https://github.com/samstav/cryptography.git@rsa-bypass-hash-on-signer
-requests>=2.7.0
+git+https://github.com/ryandub/cryptography.git@new-rsa-bypass-hash-on-signer
+requests>=2.9.1
 six>=1.9.0
