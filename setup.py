@@ -41,16 +41,16 @@ else:
 
 
 INSTALL_REQUIRES = [
-    'cryptography==1.0.1f',
+    'cryptography==1.3.1f',
     'requests>=2.7.0',
     'six>=1.9.0',
 ]
 
 
-# cryptography==1.0.1f is not on pypi, so provide a link
+# cryptography==1.3.1f is not on pypi, so provide a link
 DEPENDENCY_LINKS = [
     ('https://github.com/samstav/cryptography'
-     '/tarball/rsa-bypass-hash-on-signer#egg=cryptography-1.0.1f'),
+     '/tarball/rsa-bypass-hash-on-signer#egg=cryptography-1.3.1f'),
 ]
 
 
