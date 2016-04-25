@@ -13,14 +13,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# pylint: disable=invalid-name,wrong-import-order
 
 """requests-chef packaging, installation, and package attributes."""
 
 import os
+import setuptools
+import subprocess
 import sys
-
-from setuptools import find_packages
-from setuptools import setup
 
 
 src_dir = os.path.dirname(os.path.realpath(__file__))
@@ -28,7 +29,7 @@ src_dir = os.path.dirname(os.path.realpath(__file__))
 
 about = {}
 with open(os.path.join(src_dir, 'requests_chef', '__about__.py')) as abt:
-    exec(abt.read(), about)
+    exec(abt.read(), {'__builtins__': {}}, about)  # pylint: disable=exec-used
 
 
 # pandoc --from=markdown_github --to=rst README.md --output=README.rst
@@ -75,7 +76,6 @@ CLASSIFIERS = [
 
 # Add the commit hash to the keywords for sanity.
 if any(k in ' '.join(sys.argv).lower() for k in ['upload', 'dist']):
-    import subprocess
     try:
         current_commit = subprocess.check_output(
             ['git', 'rev-parse', 'HEAD']).strip()
@@ -96,7 +96,7 @@ package_attributes = {
     'tests_require': TESTS_REQUIRE,
     'test_suite': 'tests',
     'install_requires': INSTALL_REQUIRES,
-    'packages': find_packages(exclude=['tests']),
+    'packages': setuptools.find_packages(exclude=['tests']),
     'author': about['__author__'],
     'author_email': about['__email__'],
     'classifiers': CLASSIFIERS,
@@ -105,4 +105,4 @@ package_attributes = {
 }
 
 
-setup(**package_attributes)
+setuptools.setup(**package_attributes)

@@ -63,7 +63,7 @@ def splitter(iterable, chunksize=60):
             for i in range(0, len(iterable), chunksize))
 
 
-class ChefAuth(requests.auth.AuthBase):
+class ChefAuth(requests.auth.AuthBase):  # pylint: disable=R0903
 
     """Sign requests with user's private key.
 
