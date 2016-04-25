@@ -24,8 +24,8 @@ assert os.path.isfile(TEST_PEM), "Test PEM file not found."
 
 def ascii_digest(n=1024):
     # digest of some random text/data
-    chars = ''.join([random.choice(string.ascii_letters)
-                     for _ in xrange(n)])
+    chars = u''.join([random.choice(string.ascii_letters)
+                      for _ in range(n)]).encode()
     return hashlib.sha1(chars).hexdigest()
 
 
@@ -34,7 +34,7 @@ class TestChefAuth(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         self.user = 'patsy'
-        with open(TEST_PEM, 'r') as pkey:
+        with open(TEST_PEM, 'rb') as pkey:
             pkey = pkey.read()
         self.private_key = serialization.load_pem_private_key(
             pkey,
@@ -70,27 +70,27 @@ class TestChefAuth(unittest.TestCase):
     def assert_xops_headers(self, request):
         self.assertEqual(
             request.headers['X-Ops-Authorization-1'],
-            'nRO82dpi5XCH9AC2xM0iPzMBSpmLbazJaPa70X8h27KxRUYEEKUUBTcoM7zg'
+            b'nRO82dpi5XCH9AC2xM0iPzMBSpmLbazJaPa70X8h27KxRUYEEKUUBTcoM7zg'
         )
         self.assertEqual(
             request.headers['X-Ops-Authorization-2'],
-            'P2FJQ3ppu3K9r8arv/fnenx2Lt6VK4rQivzrDFpsh3yuDLW3lJaXe2Co4yPA'
+            b'P2FJQ3ppu3K9r8arv/fnenx2Lt6VK4rQivzrDFpsh3yuDLW3lJaXe2Co4yPA'
         )
         self.assertEqual(
             request.headers['X-Ops-Authorization-3'],
-            'X67KCw6otyrUFwSblVEdAVRp5K3QlHrmVUzqGQyEMZNS2XCmdfVT7dswacso'
+            b'X67KCw6otyrUFwSblVEdAVRp5K3QlHrmVUzqGQyEMZNS2XCmdfVT7dswacso'
         )
         self.assertEqual(
             request.headers['X-Ops-Authorization-4'],
-            'BuNG89DBAtSF3epxq/G9LqrrUOWywfm7L8iIk8hjr1fFTioWbsvhkB7jmopa'
+            b'BuNG89DBAtSF3epxq/G9LqrrUOWywfm7L8iIk8hjr1fFTioWbsvhkB7jmopa'
         )
         self.assertEqual(
             request.headers['X-Ops-Authorization-5'],
-            'LPEwUUFrkAf1o3RfxkawYbVdCJBj3Qja9qVlkTXE/ECVhi+uc+V1ThJZtkIH'
+            b'LPEwUUFrkAf1o3RfxkawYbVdCJBj3Qja9qVlkTXE/ECVhi+uc+V1ThJZtkIH'
         )
         self.assertEqual(
             request.headers['X-Ops-Authorization-6'],
-            'QGLcWHWLeiHMJMLZYKLW26NoDmwVPohANflsTEU9xQ=='
+            b'QGLcWHWLeiHMJMLZYKLW26NoDmwVPohANflsTEU9xQ=='
         )
 
     def test_from_string(self):
@@ -129,15 +129,17 @@ class TestChefAuth(unittest.TestCase):
         rsakey = requests_chef.RSAKey(self.private_key)
         data = six.text_type(self.data)
         result = rsakey.sign(data)
-        expected = ('MiCicRdNBa6hLya65Mtlp0mPr+1X01pW/mvXL6b'
-                    'JLXi9QpJExAvX2OzqJ/oDRU/m+OMGoU7x3MOHi2'
-                    'pJNtPcG4+3bs7mr9yzF9CvFas5+UzgvH2R3ooFy'
-                    'GuEv1kTVPk6ul1ws6LewX+2DV1X6YXj0gJwO2UP'
-                    'jt9wIho5LI+oKfCU1YcyfhKIpEruiMFqjWUKyqr'
-                    '/teC80q6q1ku5sDhO7JQQbkEHgzxcF4Bxcm06Ku'
-                    'rNJ+gYLHkPchQJKYPr6Ty024xwIJ5lg2Qm3a3cK'
-                    'L70cEu7vM65Eru2JCbpmybjYwLhJmcyLHipyxlE'
-                    'oD9r1ZzBjv5PAEoc3Ayba8d4B1A6bQ==')
+        expected = six.b(
+            'MiCicRdNBa6hLya65Mtlp0mPr+1X01pW/mvXL6b'
+            'JLXi9QpJExAvX2OzqJ/oDRU/m+OMGoU7x3MOHi2'
+            'pJNtPcG4+3bs7mr9yzF9CvFas5+UzgvH2R3ooFy'
+            'GuEv1kTVPk6ul1ws6LewX+2DV1X6YXj0gJwO2UP'
+            'jt9wIho5LI+oKfCU1YcyfhKIpEruiMFqjWUKyqr'
+            '/teC80q6q1ku5sDhO7JQQbkEHgzxcF4Bxcm06Ku'
+            'rNJ+gYLHkPchQJKYPr6Ty024xwIJ5lg2Qm3a3cK'
+            'L70cEu7vM65Eru2JCbpmybjYwLhJmcyLHipyxlE'
+            'oD9r1ZzBjv5PAEoc3Ayba8d4B1A6bQ=='
+        )
         self.assertEqual(expected, result)
 
     def test_repr(self):
@@ -199,7 +201,7 @@ class TestChefAuthGeneratedKey(unittest.TestCase):
             encryption_algorithm=serialization.NoEncryption()
         )
         sfx = 'requests-chef-tests.pem'
-        with tempfile.NamedTemporaryFile(suffix=sfx, mode='w') as pem:
+        with tempfile.NamedTemporaryFile(suffix=sfx, mode='wb') as pem:
             pem.write(serialized_key)
             pem.flush()
             rsakey = requests_chef.RSAKey.load_pem(pem.name)
@@ -252,12 +254,12 @@ class TestDigester(unittest.TestCase):
         self.expected_result = 'yZtNP9J1L//viv+CGWLGgUZof48='
 
     def test_handles_binary(self):
-        data = six.binary_type(self.data)
+        data = six.b(self.data)
         result = requests_chef.mixlib_auth.digester(data)
         self.assertEqual(self.expected_result, result)
 
     def test_handles_text(self):
-        data = six.text_type(self.data, encoding='utf_8')
+        data = six.u(self.data)
         result = requests_chef.mixlib_auth.digester(data)
         self.assertEqual(self.expected_result, result)
 
