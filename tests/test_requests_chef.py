@@ -223,6 +223,16 @@ class TestChefAuthGeneratedKey(unittest.TestCase):
 
 class TestChefAuthFails(unittest.TestCase):
 
+    def test_non_string_username_object_fails(self):
+        with self.assertRaises(TypeError) as error:
+            not_a_string = object()
+            requests_chef.ChefAuth(not_a_string, TEST_PEM)
+        expected_message = (
+            "'user_id' must be a 'str' "
+            "object, not {0!r}".format(not_a_string)
+        )
+        self.assertEqual(expected_message, str(error.exception))
+
     def test_missing_username_fails(self):
         with self.assertRaises(ValueError):
             requests_chef.ChefAuth(None, '.')

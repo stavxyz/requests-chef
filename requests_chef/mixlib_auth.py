@@ -86,6 +86,9 @@ class ChefAuth(requests.auth.AuthBase):  # pylint: disable=R0903
         else:
             private_key = RSAKey.load_pem(private_key)
         self.private_key = private_key
+        if not isinstance(user_id, six.string_types):
+            raise TypeError(
+                "'user_id' must be a 'str' object, not {0!r}".format(user_id))
         self.user_id = user_id
 
     def __repr__(self):
