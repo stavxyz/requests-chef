@@ -30,9 +30,11 @@ import requests
 import six
 
 from cryptography.hazmat import backends as crypto_backends
+from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.hazmat.primitives.asymmetric import utils
 
 
 def digester(data):
@@ -181,12 +183,15 @@ class RSAKey(object):
 
         The signed data will be Base64 encoded if b64 is True.
         """
-        padder = padding.PKCS1v15()
-        signer = self.private_key.signer(padder, None)
         if not isinstance(data, six.binary_type):
             data = data.encode('utf_8')
-        signer.update(data)
-        signed = signer.finalize()
+
+        signature = self.private_key.sign(
+            hashlib.sha1(data).digest(),
+            padding.PKCS1v15(),
+            utils.Prehashed(hashes.SHA1())
+        )
         if b64:
-            signed = base64.b64encode(signed)
+            signed = base64.b64encode(signature)
+
         return signed
